@@ -1,6 +1,6 @@
 # Angular Native + `@nativescript/react-native` (iOS & Android)
 
-This project demonstrates **Angular 22** running on React Native's **Fabric** renderer via [Angular Native (`@ng-native`)](https://ng-native.com), paired with [`@nativescript/react-native` (`9.1.0-alpha.1`)](https://www.npmjs.com/package/@nativescript/react-native/v/9.1.0-alpha.1) to instantiate and control **native iOS (`SceneKit`, `Metal`, `UIKit`) and native Android (`android.graphics.Canvas`, `android.view.View`, `android.os.*`, `java.lang.*`) APIs directly from TypeScript**—co-located with Angular signals.
+This project demonstrates **Angular 22** running on React Native's **Fabric** renderer via [Angular Native (`@ng-native`)](https://ng-native.com), paired with [`@nativescript/react-native` (`9.1.0`)](https://www.npmjs.com/package/@nativescript/react-native/v/9.1.0) to instantiate and control **native iOS (`SceneKit`, `Metal`, `UIKit`) and native Android (`android.graphics.Canvas`, `android.view.View`, `android.os.*`, `java.lang.*`) APIs directly from TypeScript**—co-located with Angular signals.
 
 https://github.com/user-attachments/assets/d773fee5-fb3f-442b-aee0-57f88a6cbf20
 

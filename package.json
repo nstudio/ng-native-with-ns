@@ -6,7 +6,7 @@
   "dependencies": {
     "@angular/common": "^22.0.0",
     "@angular/core": "^22.0.0",
-    "@nativescript/react-native": "^9.1.0-alpha.1",
+    "@nativescript/react-native": "^9.1.0",
     "@ng-native/components": "0.14.0",
     "@ng-native/device": "0.14.0",
     "@ng-native/fabric": "0.14.0",

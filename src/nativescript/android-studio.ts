@@ -129,30 +129,6 @@ export function ensureAndroidNativeScriptInstalled(): boolean {
     return true;
   }
 
-  // Expo defines `globalThis.expo` as `{ writable: false, configurable: true }`.
-  // When NativeScript Android's `MetadataNode::CreateTopLevelNamespaces(rt)` iterates
-  // top-level Java packages on the classpath (`android`, `com`, `expo`, `java`, `org`),
-  // `global.setProperty(rt, "expo", packageObj)` throws if `globalThis.expo` is read-only,
-  // aborting before `java` and `org` are registered. Temporarily make `expo` writable
-  // during `install("")` and restore Expo's global object immediately after.
-  const savedDescriptors: Array<[string, PropertyDescriptor]> = [];
-  for (const key of ['expo']) {
-    try {
-      const desc = Object.getOwnPropertyDescriptor(g, key);
-      if (desc && desc.writable === false && desc.configurable === true) {
-        savedDescriptors.push([key, desc]);
-        Object.defineProperty(g, key, {
-          value: desc.value,
-          writable: true,
-          enumerable: desc.enumerable ?? true,
-          configurable: true,
-        });
-      }
-    } catch {
-      // Ignore
-    }
-  }
-
   try {
     let api: any = null;
     if (typeof g.__turboModuleProxy === 'function') {
@@ -174,14 +150,6 @@ export function ensureAndroidNativeScriptInstalled(): boolean {
     }
   } catch (err) {
     console.warn('[NS-Android] TurboModule install error:', err);
-  } finally {
-    for (const [key, desc] of savedDescriptors) {
-      try {
-        Object.defineProperty(g, key, desc);
-      } catch {
-        // Ignore
-      }
-    }
   }
 
   if (g.android && g.java) {
