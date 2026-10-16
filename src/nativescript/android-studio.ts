@@ -14,7 +14,9 @@ interface AndroidStudioState {
   viewportView: any;
   segmentedView: any;
   viewportBitmap: any;
+  viewportBackBitmap: any;
   viewportCanvas: any;
+  viewportFrontCanvas: any;
   viewportDrawable: any;
   segmentedBitmap: any;
   segmentedCanvas: any;
@@ -95,7 +97,9 @@ function getStudioState(): AndroidStudioState {
       viewportView: null,
       segmentedView: null,
       viewportBitmap: null,
+      viewportBackBitmap: null,
       viewportCanvas: null,
+      viewportFrontCanvas: null,
       viewportDrawable: null,
       segmentedBitmap: null,
       segmentedCanvas: null,
@@ -705,6 +709,7 @@ function drawSceneFrame(state: AndroidStudioState): void {
   }
 
   try {
+    state.viewportFrontCanvas?.drawBitmap(state.viewportBackBitmap, 0, 0, null);
     state.viewportView?.postInvalidate?.();
   } catch {
     // Ignore
@@ -735,7 +740,15 @@ function ensureBitmapsInitialized(state: AndroidStudioState): void {
       480,
       Bitmap.Config.ARGB_8888,
     );
-    state.viewportCanvas = new Canvas(state.viewportBitmap);
+    // The RenderThread reads viewportBitmap while JS draws, so a frame is built in a
+    // back buffer and copied over in one native call to avoid showing it half-drawn.
+    state.viewportBackBitmap = Bitmap.createBitmap(
+      680,
+      480,
+      Bitmap.Config.ARGB_8888,
+    );
+    state.viewportCanvas = new Canvas(state.viewportBackBitmap);
+    state.viewportFrontCanvas = new Canvas(state.viewportBitmap);
     state.viewportDrawable = resources
       ? new BitmapDrawable(resources, state.viewportBitmap)
       : new BitmapDrawable(state.viewportBitmap);
