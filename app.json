@@ -11,7 +11,8 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.nativescript.ngnativewithns"
     },
     "android": {
       "adaptiveIcon": {
@@ -20,7 +21,8 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "org.nativescript.ngnativewithns"
     },
     "scheme": "ngnativewithns",
     "extra": {
@@ -29,7 +31,8 @@
       }
     },
     "plugins": [
-      "@ng-native/metro"
+      "@ng-native/metro",
+      "@nativescript/react-native"
     ]
   }
 }
