@@ -88,8 +88,9 @@ export const SceneWorklets = {
     scnView.allowsCameraControl = true;
     scnView.antialiasingMode = 2; // SCNMultisampling4X
 
-    // Return the native pointer handle ('0x...') to bind to <ns-uikit-view>
-    const scnViewHandle = g.__ns_registerNativeView(scnView);
+    // Retain the view on globalThis and return its native pointer handle ('0x...') to bind to <ns-uikit-view>
+    g.__ngNativeSceneState = { scnView, scene };
+    const scnViewHandle = g.interop?.handleof?.(scnView)?.toHexString?.() ?? '';
     return { scnViewHandle };
   },
 };

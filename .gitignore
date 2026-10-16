@@ -47,3 +47,6 @@ yarn-error.*
 # test coverage
 coverage/
 
+# media
+videos/
+
